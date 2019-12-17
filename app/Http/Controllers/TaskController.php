@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Board;
 use App\Task;
 use Illuminate\Http\Request;
 
@@ -12,9 +13,9 @@ class TaskController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($boardId)
     {
-        //
+        //return Task::where('bellongsToBoard', $boardId)->orderBy('updated_at','desc')->get();
     }
 
     /**
@@ -44,9 +45,16 @@ class TaskController extends Controller
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show($boardId)
     {
-        //
+        //tikriname ar autorizuotas parsymas
+        if($boardId === Board::where('id', $boardId)->where('user_id', 3)->get()){
+            return Task::where('bellongsToBoard', $boardId)->orderBy('updated_at','desc')->get();
+        }else{
+            //neautorizuotas kreipimasis
+            return null;
+        }
+
     }
 
     /**

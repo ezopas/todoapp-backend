@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 
 Route::apiResource('/board', 'BoardController');
+Route::apiResource('/task', 'TaskController');
 
 Route::group([
 
@@ -28,6 +29,7 @@ Route::group([
 ], function ($router) {
 
     Route::post('login', 'AuthController@login');
+    Route::post('signup', 'AuthController@signup');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
